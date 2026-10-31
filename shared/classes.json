@@ -1,0 +1,134 @@
+{
+  "classes": [
+    {
+      "id": "warrior",
+      "name": "Warrior",
+      "icon": "class_warrior",
+      "specs": [
+        { "id": "arms", "name": "Arms", "order": 1 },
+        { "id": "fury", "name": "Fury", "order": 2 },
+        { "id": "protection", "name": "Protection", "order": 3 }
+      ]
+    },
+    {
+      "id": "paladin",
+      "name": "Paladin",
+      "icon": "class_paladin",
+      "specs": [
+        { "id": "holy", "name": "Holy", "order": 1 },
+        { "id": "retribution", "name": "Retribution", "order": 2 },
+        { "id": "protection", "name": "Protection", "order": 3 }
+      ]
+    },
+    {
+      "id": "hunter",
+      "name": "Hunter",
+      "icon": "class_hunter",
+      "specs": [
+        { "id": "beast_mastery", "name": "Beast Mastery", "order": 1 },
+        { "id": "marksmanship", "name": "Marksmanship", "order": 2 },
+        { "id": "survival", "name": "Survival", "order": 3 }
+      ]
+    },
+    {
+      "id": "rogue",
+      "name": "Rogue",
+      "icon": "class_rogue",
+      "specs": [
+        { "id": "assassination", "name": "Assassination", "order": 1 },
+        { "id": "outlaw", "name": "Outlaw", "order": 2 },
+        { "id": "subtlety", "name": "Subtlety", "order": 3 }
+      ]
+    },
+    {
+      "id": "priest",
+      "name": "Priest",
+      "icon": "class_priest",
+      "specs": [
+        { "id": "discipline", "name": "Discipline", "order": 1 },
+        { "id": "holy", "name": "Holy", "order": 2 },
+        { "id": "shadow", "name": "Shadow", "order": 3 }
+      ]
+    },
+    {
+      "id": "shaman",
+      "name": "Shaman",
+      "icon": "class_shaman",
+      "specs": [
+        { "id": "elemental", "name": "Elemental", "order": 1 },
+        { "id": "enhancement", "name": "Enhancement", "order": 2 },
+        { "id": "restoration", "name": "Restoration", "order": 3 }
+      ]
+    },
+    {
+      "id": "mage",
+      "name": "Mage",
+      "icon": "class_mage",
+      "specs": [
+        { "id": "arcane", "name": "Arcane", "order": 1 },
+        { "id": "fire", "name": "Fire", "order": 2 },
+        { "id": "frost", "name": "Frost", "order": 3 }
+      ]
+    },
+    {
+      "id": "warlock",
+      "name": "Warlock",
+      "icon": "class_warlock",
+      "specs": [
+        { "id": "affliction", "name": "Affliction", "order": 1 },
+        { "id": "demonology", "name": "Demonology", "order": 2 },
+        { "id": "destruction", "name": "Destruction", "order": 3 }
+      ]
+    },
+    {
+      "id": "monk",
+      "name": "Monk",
+      "icon": "class_monk",
+      "specs": [
+        { "id": "brewmaster", "name": "Brewmaster", "order": 1 },
+        { "id": "mistweaver", "name": "Mistweaver", "order": 2 },
+        { "id": "windwalker", "name": "Windwalker", "order": 3 }
+      ]
+    },
+    {
+      "id": "druid",
+      "name": "Druid",
+      "icon": "class_druid",
+      "specs": [
+        { "id": "balance", "name": "Balance", "order": 1 },
+        { "id": "feral", "name": "Feral", "order": 2 },
+        { "id": "guardian", "name": "Guardian", "order": 3 },
+        { "id": "restoration", "name": "Restoration", "order": 4 }
+      ]
+    },
+    {
+      "id": "death_knight",
+      "name": "Death Knight",
+      "icon": "class_deathknight",
+      "specs": [
+        { "id": "blood", "name": "Blood", "order": 1 },
+        { "id": "frost", "name": "Frost", "order": 2 },
+        { "id": "unholy", "name": "Unholy", "order": 3 }
+      ]
+    },
+    {
+      "id": "evoker",
+      "name": "Evoker",
+      "icon": "class_evoker",
+      "specs": [
+        { "id": "devastation", "name": "Devastation", "order": 1 },
+        { "id": "preservation", "name": "Preservation", "order": 2 },
+        { "id": "augmentation", "name": "Augmentation", "order": 3 }
+      ]
+    },
+    {
+      "id": "demon_hunter",
+      "name": "Demon Hunter",
+      "icon": "class_demonhunter",
+      "specs": [
+        { "id": "havoc", "name": "Havoc", "order": 1 },
+        { "id": "vengeance", "name": "Vengeance", "order": 2 }
+      ]
+    }
+  ]
+}

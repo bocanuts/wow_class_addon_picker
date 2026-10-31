@@ -1,0 +1,13 @@
+node_modules/
+dist/
+*.local
+.env*
+
+# WoW addon data files (player-specific)
+addon/Saves/*.lua
+
+# macOS
+.DS_Store
+
+# TypeScript
+web-ui/tsbuildinfo
