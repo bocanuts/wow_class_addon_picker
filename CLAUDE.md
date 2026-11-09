@@ -15,9 +15,10 @@ wow_class_addon_picker/
 │       ├── Recommendations.lua  # Recommendation list panel
 │       └── ConfigScreen.lua    # Per-addon settings config screen
 ├── shared/                   # Shared TypeScript data between both components
-│   ├── classes.json          # Canonical class/spec definitions (12 classes)
-│   ├── addon-recommendations.ts  # Real addon recommendations per spec
-│   └── types.ts              # TypeScript type definitions
+│   ├── classes.json              # Canonical class/spec definitions (13 classes)
+│   ├── addon-recommendations.ts  # Real addon recommendations + REGISTRY_ADDONS per spec
+│   ├── registry-addons.json      # JSON sidecar for REGISTRY_ADDONS (used by Lua generator)
+│   └── types.ts                  # TypeScript type definitions
 ├── web-ui/                   # Companion web app (React + Vite + TypeScript)
 │   ├── package.json          # Dependencies: React, Vite
 │   ├── vite.config.ts        # Build config with path aliases
@@ -69,6 +70,11 @@ wow_class_addon_picker/
 ## Adding New Classes/Specs
 1. Update `shared/classes.json` with the new class and its specs.
 2. Add `SPEC_ADDONS` entries in `shared/addon-recommendations.ts` for each new spec.
-3. Add the class data in `addon/Data.lua` (`CAPClasses["class_id"] = {...}`).
-4. Update `shared/types.ts` ClassId type union.
-5. Run `node scripts/generate_lua_tables.mjs` (or update Data.lua manually if no Node.js).
+3. Update `shared/types.ts` ClassId type union.
+4. Run `node scripts/generate_lua_tables.mjs` — Data.lua is entirely auto-generated.
+
+## Adding a New Addon to the Registry
+
+1. Add an entry to `REGISTRY_ADDONS` in `shared/addon-recommendations.ts` with its `savedVariableName` and default settings
+2. Re-generate: the new JSON sidecar (`shared/registry-addons.json`) is written from REGISTRY_ADDONS
+3. Run `node scripts/generate_lua_tables.mjs` — both `CAPClasses` and `CAPAddonRegistry` are regenerated

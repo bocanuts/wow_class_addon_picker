@@ -40,15 +40,20 @@ end
 
 function CAP:ExportProfileToJson(profile)
   -- Serialize to a JSON string that can be saved to disk or copied
+  -- Helper: escape a string for JSON output
+  local function jsonEscape(str)
+    return str:gsub('\\', '\\\\'):gsub('"', '\\"'):gsub('\n', '\\n'):gsub('\r', '\\r'):gsub('\t', '\\t')
+  end
+
   local json = "{\n"
-  json = json .. '  "id": "' .. profile.id .. '",\n'
-  json = json .. '  "name": "' .. (profile.name or "Untitled") .. '",\n'
-  json = json .. '  "classId": "' .. profile.classId .. '",\n'
-  json = json .. '  "specId": "' .. profile.specId .. '",\n'
+  json = json .. '  "id": "' .. jsonEscape(profile.id) .. '",\n'
+  json = json .. '  "name": "' .. jsonEscape(profile.name or "Untitled") .. '",\n'
+  json = json .. '  "classId": "' .. jsonEscape(profile.classId) .. '",\n'
+  json = json .. '  "specId": "' .. jsonEscape(profile.specId) .. '",\n'
   json = json .. '  "selectedAddons": ['
 
   for i, key in ipairs(profile.selectedAddons) do
-    json = json .. '"[' .. key .. ']"'
+    json = json .. '"' .. jsonEscape(key) .. '"'
     if i < #profile.selectedAddons then
       json = json .. ", "
     end

@@ -7,7 +7,7 @@ A World of Warcraft addon that suggests and auto-configures the best addons for 
 - **Detects** which popular addons are installed on your character's profile
 - **Recommends** the best addons per class and spec (DPS, tank, or healer) with essential / recommended / optional priorities
 - **Auto-configures** installed addons by writing their SavedVariables settings to match your chosen profile
-- **Manages profiles** — create, save, switch, and export addon profiles for every one of WoW's 12 classes across 39 specs (including the Evoker)
+- **Manages profiles** — create, save, switch, and export addon profiles for every one of WoW Forever's 13 classes across 40 specs (including the Evoker)
 - **Companion web UI** lets you browse recommendations, build profiles with a rich interface, and export JSON files that the in-game addon imports
 
 ## Architecture
@@ -15,9 +15,9 @@ A World of Warcraft addon that suggests and auto-configures the best addons for 
 ```
 wow_class_addon_picker/
 ├── addon/                    # In-game WoW addon (.toc + Lua)
-│   ├── ClassAddonPicker.toc  # Manifest (WoW 11.03+ compatible)
+│   ├── ClassAddonPicker.toc  # Manifest (WoW Forever compatible)
 │   ├── Core.lua              # Entry, slash commands (/cap), frame & minimap icon
-│   ├── Data.lua              # All 12 classes, 39 specs, 12 addon registry entries
+│   ├── Data.lua              # All 13 classes, 40 specs, 12 addon registry entries
 │   ├── Locals.lua            # UI string table
 │   ├── Config.lua            # Settings write-back engine (plugin registry pattern)
 │   ├── Profile.lua           # Profile CRUD + import/export via SavedVariables
@@ -59,7 +59,7 @@ wow_class_addon_picker/
    ```bash
    cd web-ui && npm install && npm run dev
    ```
-2. Browse all 12 classes and 39 specs
+2. Browse all 13 classes and 40 specs
 3. Select addons for your profile
 4. Export the profile as JSON — paste it into-game via `/cap import`
 
@@ -83,7 +83,7 @@ The addon knows about these real addons (with auto-configure support):
 
 ## Classes & Specs
 
-All 12 classes with every spec (as of The War Within):
+All 13 classes with every spec (World of Warcraft Forever):
 
 | Class | Specs |
 |-------|-------|

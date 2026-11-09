@@ -1,4 +1,4 @@
-## Interface: 110300
+## Interface: 120100
 ## Title: Class Addon Picker
 ## Notes: Suggests and auto-configures the best addons for each character class and spec.
 ## Author: Jason Collier

@@ -3,7 +3,7 @@
 export type ClassId =
   | 'warrior' | 'paladin' | 'hunter' | 'rogue'
   | 'priest' | 'shaman' | 'mage' | 'warlock'
-  | 'monk' | 'druid' | 'death_knight' | 'demon_hunter';
+  | 'monk' | 'druid' | 'death_knight' | 'evoker' | 'demon_hunter';
 
 export interface ClassInfo {
   id: ClassId;

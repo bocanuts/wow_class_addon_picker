@@ -38,10 +38,168 @@ export const RECOMMENDED_CLASSES = [
   'monk',
   'druid',
   'death_knight',
+  'evoker',
   'demon_hunter',
 ] as const;
 
-/** Shared addons recommended for ALL classes/specs */
+// ---------------------------------------------------------------------------
+// Addon registry — addons the in-game addon can detect and auto-configure.
+// These are emitted to Data.lua via scripts/generate_lua_tables.mjs.
+// Addons here must have a `savedVariableName` pointing to their SavedVariables global,
+// or one that matches the addon's internal key.
+// ---------------------------------------------------------------------------
+
+export interface RegistryAddon {
+  /** Internal key used for settings targeting */
+  key: string;
+  /** Exact addon display name as shown in Twitch/curseforge */
+  name: string;
+  /** Priority for this addon across all classes */
+  priority: 'essential' | 'recommended' | 'optional';
+  /** Short description of what this addon does */
+  description: string;
+  /** URL to download / install page */
+  url?: string;
+  /** SavedVariables global name that the addon uses (for auto-configure). If absent, Config.lua falls back to addonKey. */
+  savedVariableName?: string;
+  /** Default settings overrides to apply */
+  defaultSettings: Record<string, unknown>;
+}
+
+export const REGISTRY_ADDONS: RegistryAddon[] = [
+  {
+    key: 'dbm',
+    name: 'Deadly Boss Mods',
+    priority: 'essential',
+    description: 'Essential raid boss addon with timers, warnings, and custom alerts for every encounter.',
+    url: 'https://www.curseforge.com/wow/addons/deadly-boss-mods',
+    savedVariableName: 'DBM-Core',
+    defaultSettings: {
+      autoDelayTimer: true,
+      alertRange: true,
+      screenFlash: true,
+      warningSound: true,
+    },
+  },
+  {
+    key: 'bigwigs',
+    name: 'BigWigs',
+    priority: 'optional',
+    description: 'Alternative boss mod to DBM. Use if you prefer BigWigs timers or play with players who use it.',
+    url: 'https://www.curseforge.com/wow/addons/bigwigs',
+    savedVariableName: 'BigWigs_Options',
+    defaultSettings: {
+      fontSize: 1,
+      barStyle: 'smooth',
+    },
+  },
+  {
+    key: 'weakauras',
+    name: 'WeakAuras',
+    priority: 'essential',
+    description: 'The most powerful aura/icon buff/debuff tracker. Thousands of custom AUs shared by the community.',
+    url: 'https://www.curseforge.com/wow/addons/weakauras',
+    savedVariableName: 'WeakAurs',
+    defaultSettings: {
+      useCustomFonts: false,
+      fontSize: 14,
+    },
+  },
+  {
+    key: 'details',
+    name: 'Details! Damage Meter',
+    priority: 'essential',
+    description: 'Real-time damage/healing/threat monitoring during encounters.',
+    url: 'https://www.curseforge.com/wow/addons/details',
+    savedVariableName: 'Details!VCData',
+    defaultSettings: {
+      showFloatingCombatText: true,
+      combatLogEnabled: true,
+    },
+  },
+  {
+    key: 'bagnon',
+    name: 'Bagnon',
+    priority: 'recommended',
+    description: 'Combine all your bags into one expandable window with tabs for different item types.',
+    url: 'https://www.curseforge.com/wow/addons/bagnon',
+    savedVariableName: 'BagnonDB',
+    defaultSettings: {
+      bagSize: 1,
+      showAllTabs: true,
+    },
+  },
+  {
+    key: 'auctionator',
+    name: 'Auctionator',
+    priority: 'recommended',
+    description: 'Fast auction house browsing with price comparison and mass posting.',
+    url: 'https://www.curseforge.com/wow/addons/auctionator',
+    savedVariableName: 'AuctionatorDB',
+    defaultSettings: {
+      underCutAmount: 5,
+      maxStacksToShow: 10,
+    },
+  },
+  {
+    key: 'tellmewhen',
+    name: 'TellMeWhen',
+    priority: 'essential',
+    description: 'Highly configurable icon display for cooldowns, procs, and important abilities.',
+    url: 'https://www.curseforge.com/wow/addons/tellmewhen',
+    savedVariableName: 'TellMeWhen1DB',
+    defaultSettings: {
+      rows: 2,
+      columns: 4,
+      fontSize: 18,
+    },
+  },
+  {
+    key: 'kuinameplates',
+    name: 'KuiNameplates',
+    priority: 'recommended',
+    description: 'Customizable nameplates with threat coloring, casting bars, and health bars.',
+    url: 'https://www.curseforge.com/wow/addons/kuinameplates',
+    savedVariableName: 'Kui_NameplatesDB',
+    defaultSettings: {
+      height: 60,
+      width: 400,
+      showCastingBar: true,
+      threatStyle: 'color',
+    },
+  },
+  {
+    key: 'quartz',
+    name: 'Quartz',
+    priority: 'recommended',
+    description: 'Replace default casting bars with customizable unit frame cast bars.',
+    url: 'https://www.curseforge.com/wow/addons/quartz',
+    savedVariableName: 'Quartz30DB',
+    defaultSettings: {
+      width: 280,
+      fontSize: 14,
+      showProgressBar: true,
+    },
+  },
+  {
+    key: 'auraframes',
+    name: 'AuraFrames',
+    priority: 'recommended',
+    description: 'Raid frame addon that shows buff/debuff icons on party/raid members.',
+    url: 'https://www.curseforge.com/wow/addons/auraframes',
+    savedVariableName: 'AuraFramesDB',
+  },
+  {
+    key: 'elvui',
+    name: 'ElvUI',
+    priority: 'recommended',
+    description: 'Complete UI replacement with modular design. Replaces frames, fonts, and layouts.',
+    url: 'https://www.curseforge.com/wow/addons/elvui',
+    savedVariableName: 'ElvUI_Config',
+  },
+];
+
+/** Shared addons recommended for ALL classes/specs (subset of REGISTRY_ADDONS used as per-class defaults) */
 const SHARED_ADDONS: AddonRecommendation[] = [
   {
     name: 'Deadly Boss Mods',
