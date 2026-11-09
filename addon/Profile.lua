@@ -73,7 +73,7 @@ end
 
 -- Import a profile from JSON (e.g., copied from the web UI)
 function CAP:ImportProfileFromJson(jsonString)
-  -- Use WoW's built-in JSON decoder (11.0+)
+  -- Use WoW's built-in JSON decoder
   local ok, data = pcall(C_JSON.Decode, jsonString)
   if not ok or not data then
     return nil, "Invalid JSON"

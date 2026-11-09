@@ -48,7 +48,7 @@ wow_class_addon_picker/
 
 1. Extract the `addon/` folder into your WoW directory:
    ```
-   World of Warcraft/_retail_/Interface/Addons/ClassAddonPicker/
+   World of Warcraft/Forever/Interface/Addons/ClassAddonPicker/
    ```
 2. Reload UI (`/reload`) or restart your client
 3. Open with `/cap` or click the minimap icon
