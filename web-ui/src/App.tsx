@@ -1,6 +1,7 @@
-import { useState } from 'react'
-import classesData from '../shared/classes.json'
-import type { ClassInfo, UserProfile } from '../shared/types'
+import { useState, useMemo } from 'react'
+import classesData from '@shared/classes.json'
+import type { ClassInfo, UserProfile } from '@shared/types'
+import { getAddonsForClassSpec } from '@shared/addon-recommendations'
 
 const CLASSES: ClassInfo[] = classesData.classes
 
@@ -21,6 +22,12 @@ function App() {
       // Ignore parse errors
     }
   }
+
+  // Get recommendations for current class/spec selection
+  const addons = useMemo(() => {
+    if (!selectedClass || !selectedSpec) return []
+    return getAddonsForClassSpec(selectedClass.id, selectedSpec)
+  }, [selectedClass, selectedSpec])
 
   const handleClassSelect = (classInfo: ClassInfo) => {
     setSelectedClass(classInfo)
@@ -104,7 +111,7 @@ function App() {
           {!selectedClass && <p style={{ color: '#94a3b8' }}>Select a class to see recommendations.</p>}
           {selectedClass && !selectedSpec && <p style={{ color: '#94a3b8' }}>Select a spec above.</p>}
 
-          {selectedClass && selectedSpec && (
+          {selectedClass && selectedSpec && addons.length > 0 && (
             <div>
               <h3 style={{ marginBottom: 16, fontSize: 18 }}>
                 Recommended Addons for {selectedClass.name} — {
@@ -118,16 +125,9 @@ function App() {
                   Essential
                 </h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                  {RECOMMENDATIONS[selectedClass.id + '_' + selectedSpec]
-                    ?.filter(r => r.priority === 'essential')
-                    .map(addon => (
-                      <AddonCard key={addon.key} addon={addon} activeProfileId={activeProfileId} />
-                    )) || [
-                      // Default shared essentials shown when no spec-specific data exists
-                      { key: 'dbm', name: 'Deadly Boss Mods', priority: 'essential' as const, description: 'Essential raid boss addon.', url: '#' },
-                      { key: 'weakauras', name: 'WeakAuras', priority: 'essential' as const, description: 'Powerful aura tracker.', url: '#' },
-                    ]
-                  }
+                  {addons.filter(r => r.priority === 'essential').map(addon => (
+                    <AddonCard key={addon.key} addon={addon} activeProfileId={activeProfileId} />
+                  ))}
                 </div>
               </div>
 
@@ -137,11 +137,9 @@ function App() {
                   Recommended
                 </h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                  {RECOMMENDATIONS[selectedClass.id + '_' + selectedSpec]
-                    ?.filter(r => r.priority === 'recommended')
-                    .map(addon => (
-                      <AddonCard key={addon.key} addon={addon} activeProfileId={activeProfileId} />
-                    )) || []}
+                  {addons.filter(r => r.priority === 'recommended').map(addon => (
+                    <AddonCard key={addon.key} addon={addon} activeProfileId={activeProfileId} />
+                  ))}
                 </div>
               </div>
 
@@ -151,11 +149,9 @@ function App() {
                   Optional
                 </h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                  {RECOMMENDATIONS[selectedClass.id + '_' + selectedSpec]
-                    ?.filter(r => r.priority === 'optional')
-                    .map(addon => (
-                      <AddonCard key={addon.key} addon={addon} activeProfileId={activeProfileId} />
-                    )) || []}
+                  {addons.filter(r => r.priority === 'optional').map(addon => (
+                    <AddonCard key={addon.key} addon={addon} activeProfileId={activeProfileId} />
+                  ))}
                 </div>
               </div>
             </div>
@@ -169,10 +165,7 @@ function App() {
   )
 }
 
-// Default recommendation data (matches shared/addon-recommendations.ts)
-const RECOMMENDATIONS: Record<string, Array<{ key: string; name: string; priority: 'essential' | 'recommended' | 'optional'; description: string; url?: string }>> = {}
-
-function AddonCard({ addon, activeProfileId }: { addon: typeof RECOMMENDATIONS[string][number]; activeProfileId: string | null }) {
+function AddonCard({ addon, activeProfileId }: { addon: { key: string; name: string; priority: 'essential' | 'recommended' | 'optional'; description: string; url?: string }; activeProfileId: string | null }) {
   const isChecked = activeProfileId !== null // simplified — in reality this checks if the addon is in the profile
   return (
     <div style={{
@@ -222,11 +215,11 @@ function ProfileBar({ profiles, activeProfileId, onActivate }: {
             onClick={() => onActivate(activeProfileId === p.id ? null : p.id)}
             style={{
               padding: '4px 12px',
-      border: activeProfileId === p.id ? '1px solid #e94560' : '1px solid #334155',
-      background: activeProfileId === p.id ? '#e94560' : 'transparent',
-      color: activeProfileId === p.id ? '#fff' : '#94a3b8',
-      borderRadius: 4,
-      cursor: 'pointer',
+              border: activeProfileId === p.id ? '1px solid #e94560' : '1px solid #334155',
+              background: activeProfileId === p.id ? '#e94560' : 'transparent',
+              color: activeProfileId === p.id ? '#fff' : '#94a3b8',
+              borderRadius: 4,
+              cursor: 'pointer',
             }}
           >
             {p.name}
